@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Moments Gallery 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ===================================
+       CSS Variables & Theme
+       =================================== */
+    :root {
+      /* Color Palette - Soft & Romantic */
+      --color-primary: #ff6b9d;
+      --color-primary-light: #ffb3d9;
+      --color-primary-dark: #ff3d7f;
+      --color-secondary: #c44569;
+      --color-accent: #ffd93d;
+      --color-accent-light: #ffe66d;
+
+      /* Pastel Background Colors */
+      --color-bg-primary: #fff0f6;
+      --color-bg-secondary: #ffe5f1;
+      --color-bg-gradient-start: #ffeef8;
+      --color-bg-gradient-end: #e8f5ff;
+
+      /* Text Colors */
+      --color-text-primary: #2d3436;
+      --color-text-secondary: #636e72;
+      --color-text-light: #b2bec3;
+      --color-text-white: #ffffff;
+
+      /* Card & Surface Colors */
+      --color-card-bg: #ffffff;
+      --color-overlay: rgba(255, 107, 157, 0.9);
+      --color-overlay-light: rgba(255, 179, 217, 0.85);
+
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(255, 107, 157, 0.1);
+      --shadow-md: 0 4px 16px rgba(255, 107, 157, 0.15);
+      --shadow-lg: 0 8px 32px rgba(255, 107, 157, 0.2);
+      --shadow-xl: 0 12px 48px rgba(255, 107, 157, 0.25);
+
+      /* Typography */
+      --font-primary: 'Quicksand', sans-serif;
+      --font-display: 'Playfair Display', serif;
+      --font-script: 'Dancing Script', cursive;
+
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      --spacing-2xl: 4rem;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+
+      /* Transitions */
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+      --transition-slow: 0.5s ease;
+    }
+
+    /* ===================================
+       Reset & Base Styles
+       =================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background: linear-gradient(135deg, var(--color-bg-gradient-start) 0%, var(--color-bg-gradient-end) 100%);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===================================
+       Typography Classes
+       =================================== */
+    .heading-primary {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-primary-dark);
+    }
+
+    .heading-secondary {
+      font-family: var(--font-script);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .text-body {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    .text-small {
+      font-size: 0.875rem;
+      color: var(--color-text-light);
+    }
+
+    /* ===================================
+       Animated Background
+       =================================== */
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--color-primary-light);
+      opacity: 0.6;
+      animation: fall linear infinite;
+    }
+
+    .confetti:nth-child(1) {
+      left: 10%;
+      animation-duration: 8s;
+      animation-delay: 0s;
+      background: var(--color-primary);
+    }
+
+    .confetti:nth-child(2) {
+      left: 20%;
+      animation-duration: 10s;
+      animation-delay: 1s;
+      background: var(--color-accent);
+      border-radius: 50%;
+    }
+
+    .confetti:nth-child(3) {
+      left: 30%;
+      animation-duration: 7s;
+      animation-delay: 2s;
+      background: var(--color-primary-light);
+      transform: rotate(45deg);
+    }
+
+    .confetti:nth-child(4) {
+      left: 40%;
+      animation-duration: 9s;
+      animation-delay: 0.5s;
+      background: var(--color-secondary);
+      border-radius: 50%;
+    }
+
+    .confetti:nth-child(5) {
+      left: 50%;
+      animation-duration: 11s;
+      animation-delay: 1.5s;
+      background: var(--color-accent-light);
+    }
+
+    .confetti:nth-child(6) {
+      left: 60%;
+      animation-duration: 8.5s;
+      animation-delay: 0.8s;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    .confetti:nth-child(7) {
+      left: 70%;
+      animation-duration: 9.5s;
+      animation-delay: 2.5s;
+      background: var(--color-primary-light);
+    }
+
+    .confetti:nth-child(8) {
+      left: 80%;
+      animation-duration: 7.5s;
+      animation-delay: 1.2s;
+      background: var(--color-accent);
+      transform: rotate(45deg);
+    }
+
+    .confetti:nth-child(9) {
+      left: 90%;
+      animation-duration: 10.5s;
+      animation-delay: 0.3s;
+      background: var(--color-secondary);
+      border-radius: 50%;
+    }
+
+    .confetti:nth-child(10) {
+      left: 95%;
+      animation-duration: 8.8s;
+      animation-delay: 1.8s;
+      background: var(--color-primary-light);
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+
+      100% {
+        top: 110%;
+        opacity: 0.3;
+      }
+    }
+
+    /* ===================================
+       Hero Section
+       =================================== */
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-md);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-title {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .title-line {
+      display: block;
+      font-family: var(--font-script);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-xs);
+      animation: fadeIn 1s ease 0.3s both;
+    }
+
+    .title-name {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeIn 1s ease 0.6s both;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      animation: fadeIn 1s ease 0.9s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ===================================
+       Gallery Container
+       =================================== */
+    .gallery-container {
+      position: relative;
+      z-index: 1;
+      padding: var(--spacing-xl) var(--spacing-md);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      padding: var(--spacing-md);
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+      }
+    }
+
+    /* ===================================
+       Gallery Cards
+       =================================== */
+    .gallery-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--color-card-bg);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-normal);
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .gallery-card.aos-animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      overflow: hidden;
+    }
+
+    .card-media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-image,
+    .card-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .gallery-card:hover .card-image,
+    .gallery-card:hover .card-video {
+      transform: scale(1.1);
+    }
+
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, var(--color-overlay) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--spacing-md);
+    }
+
+    .gallery-card:hover .card-overlay {
+      opacity: 1;
+    }
+
+    .card-note {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      color: var(--color-text-white);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transform: translateY(20px);
+      transition: transform var(--transition-normal);
+    }
+
+    .gallery-card:hover .card-note {
+      transform: translateY(0);
+    }
+
+    .note-emoji {
+      font-size: 1.5rem;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .note-text {
+      font-family: var(--font-script);
+      font-size: 1.3rem;
+    }
+
+    /* ===================================
+       Lightbox Modal
+       =================================== */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-md);
+    }
+
+    .lightbox.active {
+      display: flex;
+      animation: fadeIn var(--transition-normal);
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+    }
+
+    .lightbox-image,
+    .lightbox-video {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: var(--color-primary);
+      color: var(--color-text-white);
+      font-size: 2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lightbox-close:hover {
+      background: var(--color-primary-dark);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: var(--color-primary);
+      color: var(--color-text-white);
+      font-size: 2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lightbox-nav:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .lightbox-prev {
+      left: var(--spacing-md);
+    }
+
+    .lightbox-next {
+      right: var(--spacing-md);
+    }
+
+    /* ===================================
+       Footer
+       =================================== */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: linear-gradient(to top, rgba(255, 107, 157, 0.1) 0%, transparent 100%);
+    }
+
+    .footer-text {
+      font-family: var(--font-script);
+      font-size: 1.3rem;
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .footer-text:hover {
+      color: var(--color-primary-dark);
+      transform: scale(1.05);
+    }
+
+    /* ===================================
+       Responsive Design
+       =================================== */
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 50vh;
+        padding: var(--spacing-xl) var(--spacing-md);
+      }
+
+      .gallery-container {
+        padding: var(--spacing-md);
+      }
+
+      .lightbox-nav,
+      .lightbox-close {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+      }
+    }
+
+    /* ===================================
+       Loading State
+       =================================== */
+    body.loaded {
+      animation: pageLoad 0.5s ease;
+    }
+
+    @keyframes pageLoad {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ===================================
+       Scroll Animations
+       =================================== */
+    [data-aos] {
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    [data-aos="fade-up"] {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    [data-aos="fade-up"].aos-animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delays */
+    [data-aos-delay="100"] {
+      transition-delay: 0.1s;
+    }
+
+    [data-aos-delay="200"] {
+      transition-delay: 0.2s;
+    }
+
+    [data-aos-delay="300"] {
+      transition-delay: 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="background-animation">
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="title-line">Beautiful Moments</span>
+        <span class="title-name">Gallery of Love</span>
+      </h1>
+      <p class="hero-subtitle">A collection of precious memories 💕✨</p>
+    </div>
+  </header>
+
+  <!-- Gallery Container -->
+  <main class="gallery-container">
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Video Card 1 -->
+      <div class="gallery-card video-card" data-aos="fade-up">
+        <div class="card-inner">
+          <div class="card-media">
+            <video src="vid1.mp4" autoplay loop muted playsinline poster="" class="card-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🎬</span>
+              <span class="note-text">Special Moments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 1 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="1.jpg" alt="Beautiful smile" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">💖</span>
+              <span class="note-text">Radiant Beauty</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 2 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="2.jpg" alt="Lovely moment" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">✨</span>
+              <span class="note-text">Pure Joy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Card 2 -->
+      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <video src="vid2.mp4" autoplay loop muted playsinline poster="" class="card-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🎥</span>
+              <span class="note-text">Cherished Times</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 3 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="3.jpg" alt="Sweet memories" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌸</span>
+              <span class="note-text">Sweet Memories</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 4 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="4.jpg" alt="Precious time" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">💕</span>
+              <span class="note-text">Precious Time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 5 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="5.jpg" alt="Lovely smile" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌹</span>
+              <span class="note-text">Lovely Smile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Card 3 -->
+      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <video src="vid3.mp4" autoplay loop muted playsinline poster="" class="card-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">📹</span>
+              <span class="note-text">Beautiful Memories</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 6 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="6.jpg" alt="Heartfelt moments" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">💗</span>
+              <span class="note-text">Heartfelt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 7 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="7.jpg" alt="Graceful beauty" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🦋</span>
+              <span class="note-text">Graceful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 8 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="8.jpg" alt="Charming presence" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌺</span>
+              <span class="note-text">Charming</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Card 4 -->
+      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <video src="vid4.mp4" autoplay loop muted playsinline poster="" class="card-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🎞️</span>
+              <span class="note-text">Precious Clips</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 9 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="9.jpg" alt="Wonderful memories" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌟</span>
+              <span class="note-text">Wonderful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 10 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="10.jpg" alt="Delightful moments" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌈</span>
+              <span class="note-text">Delightful</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 11 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="11.jpg" alt="Enchanting beauty" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">✨</span>
+              <span class="note-text">Enchanting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Card 5 -->
+      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <video src="vid5.mp4" autoplay loop muted playsinline poster="" class="card-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🎬</span>
+              <span class="note-text">Magical Moments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 12 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="12.jpg" alt="Stunning presence" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">💫</span>
+              <span class="note-text">Stunning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 13 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="13.jpg" alt="Radiant glow" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌟</span>
+              <span class="note-text">Radiant Glow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 14 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="14.jpg" alt="Captivating smile" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">💖</span>
+              <span class="note-text">Captivating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Card 6 -->
+      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <video src="vid6.mp4" autoplay loop muted playsinline poster="" class="card-video">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🎥</span>
+              <span class="note-text">Unforgettable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 15 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="15.jpg" alt="Elegant beauty" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">🌹</span>
+              <span class="note-text">Elegant</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 16 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="16.jpg" alt="Mesmerizing moments" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">✨</span>
+              <span class="note-text">Mesmerizing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 17 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="17.jpg" alt="Angelic presence" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">👼</span>
+              <span class="note-text">Angelic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 18 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="18.jpg" alt="Dreamy moments" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">💭</span>
+              <span class="note-text">Dreamy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 19 -->
+      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-inner">
+          <div class="card-media">
+            <img src="19.jpg" alt="Timeless beauty" class="card-image" loading="lazy">
+          </div>
+          <div class="card-overlay">
+            <div class="card-note">
+              <span class="note-emoji">⏳</span>
+              <span class="note-text">Timeless</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">Made with 💖 for someone special</p>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightboxImage" class="lightbox-image">
+      <video src="" controls id="lightboxVideo" class="lightbox-video"></video>
+    </div>
+  </div>
+
+  <script>
+    // ===================================
+    // Gallery Lightbox Functionality
+    // ===================================
+
+    class GalleryLightbox {
+      constructor() {
+        this.lightbox = document.getElementById('lightbox');
+        this.lightboxImage = document.getElementById('lightboxImage');
+        this.lightboxVideo = document.getElementById('lightboxVideo');
+        this.lightboxClose = document.getElementById('lightboxClose');
+        this.lightboxPrev = document.getElementById('lightboxPrev');
+        this.lightboxNext = document.getElementById('lightboxNext');
+        this.galleryCards = document.querySelectorAll('.gallery-card');
+        this.currentIndex = 0;
+
+        this.init();
+      }
+
+      init() {
+        // Add click event to all gallery cards
+        this.galleryCards.forEach((card, index) => {
+          card.addEventListener('click', () => this.openLightbox(index));
+        });
+
+        // Close lightbox
+        this.lightboxClose.addEventListener('click', () => this.closeLightbox());
+
+        // Navigation
+        this.lightboxPrev.addEventListener('click', () => this.navigate(-1));
+        this.lightboxNext.addEventListener('click', () => this.navigate(1));
+
+        // Close on background click
+        this.lightbox.addEventListener('click', (e) => {
+          if (e.target === this.lightbox) {
+            this.closeLightbox();
+          }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (!this.lightbox.classList.contains('active')) return;
+
+          if (e.key === 'Escape') this.closeLightbox();
+          if (e.key === 'ArrowLeft') this.navigate(-1);
+          if (e.key === 'ArrowRight') this.navigate(1);
+        });
+      }
+
+      openLightbox(index) {
+        this.currentIndex = index;
+        this.showMedia();
+        this.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeLightbox() {
+        this.lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // Pause video if playing
+        if (!this.lightboxVideo.paused) {
+          this.lightboxVideo.pause();
+        }
+      }
+
+      navigate(direction) {
+        this.currentIndex += direction;
+
+        // Loop around
+        if (this.currentIndex < 0) {
+          this.currentIndex = this.galleryCards.length - 1;
+        } else if (this.currentIndex >= this.galleryCards.length) {
+          this.currentIndex = 0;
+        }
+
+        this.showMedia();
+      }
+
+      showMedia() {
+        const currentCard = this.galleryCards[this.currentIndex];
+        const isVideo = currentCard.classList.contains('video-card');
+
+        if (isVideo) {
+          const videoSrc = currentCard.querySelector('video').src;
+          this.lightboxVideo.src = videoSrc;
+          this.lightboxVideo.style.display = 'block';
+          this.lightboxImage.style.display = 'none';
+          // Enable controls in lightbox for user interaction
+          this.lightboxVideo.controls = true;
+          this.lightboxVideo.muted = false;
+        } else {
+          const imageSrc = currentCard.querySelector('img').src;
+          const imageAlt = currentCard.querySelector('img').alt;
+          this.lightboxImage.src = imageSrc;
+          this.lightboxImage.alt = imageAlt;
+          this.lightboxImage.style.display = 'block';
+          this.lightboxVideo.style.display = 'none';
+          this.lightboxVideo.pause();
+          this.lightboxVideo.controls = false;
+        }
+      }
+    }
+
+    // ===================================
+    // Scroll Animations (AOS-like)
+    // ===================================
+
+    class ScrollAnimations {
+      constructor() {
+        this.animatedElements = document.querySelectorAll('[data-aos]');
+        this.init();
+      }
+
+      init() {
+        this.observeElements();
+
+        // Initial check for elements already in view
+        this.checkElements();
+      }
+
+      observeElements() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+          }
+        );
+
+        this.animatedElements.forEach(element => {
+          observer.observe(element);
+        });
+      }
+
+      checkElements() {
+        this.animatedElements.forEach(element => {
+          const rect = element.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+
+          if (rect.top < windowHeight - 50) {
+            element.classList.add('aos-animate');
+          }
+        });
+      }
+    }
+
+    // ===================================
+    // Card Hover Effects Enhancement
+    // ===================================
+
+    class CardEffects {
+      constructor() {
+        this.cards = document.querySelectorAll('.gallery-card');
+        this.init();
+      }
+
+      init() {
+        this.cards.forEach(card => {
+          card.addEventListener('mouseenter', (e) => this.handleMouseEnter(e));
+          card.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+          card.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
+        });
+      }
+
+      handleMouseEnter(e) {
+        const card = e.currentTarget;
+        card.style.transition = 'transform 0.1s ease';
+      }
+
+      handleMouseMove(e) {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+      }
+
+      handleMouseLeave(e) {
+        const card = e.currentTarget;
+        card.style.transition = 'transform 0.3s ease';
+        card.style.transform = '';
+      }
+    }
+
+    // ===================================
+    // Performance Optimization
+    // ===================================
+
+    class LazyLoader {
+      constructor() {
+        this.images = document.querySelectorAll('img[loading="lazy"]');
+        this.init();
+      }
+
+      init() {
+        if ('loading' in HTMLImageElement.prototype) {
+          // Browser supports native lazy loading
+          return;
+        }
+
+        // Fallback for browsers that don't support lazy loading
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src || img.src;
+              imageObserver.unobserve(img);
+            }
+          });
+        });
+
+        this.images.forEach(img => imageObserver.observe(img));
+      }
+    }
+
+    // ===================================
+    // Dynamic Hearts Animation
+    // ===================================
+
+    class HeartsAnimation {
+      constructor() {
+        this.container = document.querySelector('.background-animation');
+        this.init();
+      }
+
+      init() {
+        // Create floating hearts periodically
+        setInterval(() => this.createHeart(), 3000);
+      }
+
+      createHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '💖';
+        heart.style.position = 'absolute';
+        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.bottom = '-50px';
+        heart.style.opacity = '0.7';
+        heart.style.pointerEvents = 'none';
+        heart.style.animation = `floatHeart ${Math.random() * 3 + 4}s linear forwards`;
+
+        this.container.appendChild(heart);
+
+        // Remove heart after animation
+        setTimeout(() => heart.remove(), 7000);
+      }
+    }
+
+    // Add CSS for heart animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes floatHeart {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // ===================================
+    // Initialize Everything
+    // ===================================
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize lightbox
+      new GalleryLightbox();
+
+      // Initialize scroll animations
+      new ScrollAnimations();
+
+      // Initialize card effects
+      new CardEffects();
+
+      // Initialize lazy loading
+      new LazyLoader();
+
+      // Initialize hearts animation
+      new HeartsAnimation();
+
+      // Add loaded class to body for any CSS transitions
+      document.body.classList.add('loaded');
+    });
+
+    // ===================================
+    // Utility: Smooth Scroll to Top
+    // ===================================
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Add scroll to top on footer click
+    const footer = document.querySelector('.footer');
+    if (footer) {
+      footer.addEventListener('click', scrollToTop);
+    }
+  </script>
+</body>
+
+</html>
