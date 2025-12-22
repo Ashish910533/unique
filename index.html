@@ -123,120 +123,7 @@
       color: var(--color-text-light);
     }
 
-    /* ===================================
-       Animated Background
-       =================================== */
-    .background-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: var(--color-primary-light);
-      opacity: 0.6;
-      animation: fall linear infinite;
-    }
-
-    .confetti:nth-child(1) {
-      left: 10%;
-      animation-duration: 8s;
-      animation-delay: 0s;
-      background: var(--color-primary);
-    }
-
-    .confetti:nth-child(2) {
-      left: 20%;
-      animation-duration: 10s;
-      animation-delay: 1s;
-      background: var(--color-accent);
-      border-radius: 50%;
-    }
-
-    .confetti:nth-child(3) {
-      left: 30%;
-      animation-duration: 7s;
-      animation-delay: 2s;
-      background: var(--color-primary-light);
-      transform: rotate(45deg);
-    }
-
-    .confetti:nth-child(4) {
-      left: 40%;
-      animation-duration: 9s;
-      animation-delay: 0.5s;
-      background: var(--color-secondary);
-      border-radius: 50%;
-    }
-
-    .confetti:nth-child(5) {
-      left: 50%;
-      animation-duration: 11s;
-      animation-delay: 1.5s;
-      background: var(--color-accent-light);
-    }
-
-    .confetti:nth-child(6) {
-      left: 60%;
-      animation-duration: 8.5s;
-      animation-delay: 0.8s;
-      background: var(--color-primary);
-      border-radius: 50%;
-    }
-
-    .confetti:nth-child(7) {
-      left: 70%;
-      animation-duration: 9.5s;
-      animation-delay: 2.5s;
-      background: var(--color-primary-light);
-    }
-
-    .confetti:nth-child(8) {
-      left: 80%;
-      animation-duration: 7.5s;
-      animation-delay: 1.2s;
-      background: var(--color-accent);
-      transform: rotate(45deg);
-    }
-
-    .confetti:nth-child(9) {
-      left: 90%;
-      animation-duration: 10.5s;
-      animation-delay: 0.3s;
-      background: var(--color-secondary);
-      border-radius: 50%;
-    }
-
-    .confetti:nth-child(10) {
-      left: 95%;
-      animation-duration: 8.8s;
-      animation-delay: 1.8s;
-      background: var(--color-primary-light);
-    }
-
-    @keyframes fall {
-      0% {
-        top: -10%;
-        opacity: 0.6;
-      }
-
-      50% {
-        opacity: 0.8;
-      }
-
-      100% {
-        top: 110%;
-        opacity: 0.3;
-      }
-    }
+    /* Animated background removed to simplify admin UI and reduce bandwidth */
 
     /* ===================================
        Hero Section
@@ -646,19 +533,7 @@
 </head>
 
 <body>
-  <!-- Animated Background -->
-  <div class="background-animation">
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-    <div class="confetti"></div>
-  </div>
+  <!-- (Simplified) No animated background to keep admin UI lightweight -->
 
   <!-- Hero Section -->
   <header class="hero">
@@ -1099,10 +974,17 @@
       }
 
       init() {
-        // Add click event to all gallery cards
-        this.galleryCards.forEach((card, index) => {
-          card.addEventListener('click', () => this.openLightbox(index));
-        });
+        // Use event delegation so dynamically added cards work
+        const gallery = document.getElementById('galleryGrid');
+        if (gallery) {
+          gallery.addEventListener('click', (e) => {
+            const card = e.target.closest('.gallery-card');
+            if (!card) return;
+            const cards = Array.from(document.querySelectorAll('.gallery-card'));
+            const index = cards.indexOf(card);
+            if (index >= 0) this.openLightbox(index);
+          });
+        }
 
         // Close lightbox
         this.lightboxClose.addEventListener('click', () => this.closeLightbox());
@@ -1129,6 +1011,8 @@
       }
 
       openLightbox(index) {
+        // refresh list of gallery cards so dynamically added cards are included
+        this.galleryCards = document.querySelectorAll('.gallery-card');
         this.currentIndex = index;
         this.showMedia();
         this.lightbox.classList.add('active');
@@ -1308,61 +1192,199 @@
       }
     }
 
-    // ===================================
-    // Dynamic Hearts Animation
-    // ===================================
-
-    class HeartsAnimation {
-      constructor() {
-        this.container = document.querySelector('.background-animation');
-        this.init();
-      }
-
-      init() {
-        // Create floating hearts periodically
-        setInterval(() => this.createHeart(), 3000);
-      }
-
-      createHeart() {
-        const heart = document.createElement('div');
-        heart.innerHTML = '💖';
-        heart.style.position = 'absolute';
-        heart.style.fontSize = Math.random() * 20 + 15 + 'px';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.bottom = '-50px';
-        heart.style.opacity = '0.7';
-        heart.style.pointerEvents = 'none';
-        heart.style.animation = `floatHeart ${Math.random() * 3 + 4}s linear forwards`;
-
-        this.container.appendChild(heart);
-
-        // Remove heart after animation
-        setTimeout(() => heart.remove(), 7000);
-      }
-    }
-
-    // Add CSS for heart animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes floatHeart {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 0.7;
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-100vh) rotate(360deg);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(style);
+    // Hearts animation removed for simplified admin UI
 
     // ===================================
     // Initialize Everything
     // ===================================
+    // Image Manager: client-side upload/delete with localStorage persistence
+    class ImageManager {
+      constructor() {
+        this.key = 'managedImages_v1';
+        this.galleryGrid = document.getElementById('galleryGrid');
+        this.initUI();
+        this.loadManagedImages();
+      }
+
+      initUI() {
+        const btn = document.createElement('button');
+        btn.id = 'manageBtn';
+        btn.textContent = 'Manage Images';
+        Object.assign(btn.style, { position: 'fixed', right: '18px', bottom: '18px', zIndex: 10001, background: 'var(--color-primary)', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: '10px', cursor: 'pointer', boxShadow: 'var(--shadow-lg)' });
+        document.body.appendChild(btn);
+
+        const panel = document.createElement('div');
+        panel.id = 'managePanel';
+        Object.assign(panel.style, { position: 'fixed', right: '18px', bottom: '70px', width: '320px', maxHeight: '60vh', overflowY: 'auto', background: 'white', padding: '12px', borderRadius: '12px', boxShadow: 'var(--shadow-xl)', zIndex: 10001, display: 'none' });
+        panel.innerHTML = `
+          <h3 style="margin:0 0 8px 0;font-family:var(--font-display)">Manage Images</h3>
+          <input type="file" id="imgFile" accept="image/*" />
+          <div id="preview" style="margin-top:8px"></div>
+          <button id="uploadImg" style="margin-top:8px;display:block;background:var(--color-primary);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer">Upload</button>
+          <hr style="margin:10px 0"/>
+          <div id="managedList"></div>
+          <p style="font-size:12px;color:#666;margin-top:8px">Images are stored locally in your browser unless you configure the backend (Netlify Functions) to save them to GitHub.</p>
+        `;
+        document.body.appendChild(panel);
+
+        btn.addEventListener('click', () => panel.style.display = panel.style.display === 'none' ? 'block' : 'none');
+
+        const fileInput = panel.querySelector('#imgFile');
+        const preview = panel.querySelector('#preview');
+        const uploadBtn = panel.querySelector('#uploadImg');
+
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files[0];
+          preview.innerHTML = '';
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = e => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            Object.assign(img.style, { maxWidth: '100%', borderRadius: '8px' });
+            preview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        });
+
+        uploadBtn.addEventListener('click', () => {
+          (async () => {
+            const file = fileInput.files[0];
+            if (!file) { alert('Choose an image first'); return; }
+
+            // Choose endpoint: Netlify Functions when deployed, otherwise local /api
+            const useNetlify = location.hostname.includes('netlify') || location.hostname === 'localhost';
+            const endpoint = useNetlify ? '/.netlify/functions/upload' : '/api/upload';
+
+            try {
+              // Read file as data URL (base64) and send JSON to serverless function
+              const dataUrl = await new Promise((resolve, reject) => {
+                const r = new FileReader();
+                r.onload = () => resolve(r.result);
+                r.onerror = reject;
+                r.readAsDataURL(file);
+              });
+
+              const resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: file.name, dataUrl }) });
+              if (resp.ok) {
+                const data = await resp.json();
+                const id = 'mimg_' + Date.now();
+                const item = { id, name: file.name, url: data.url, path: data.path };
+                const arr = this.getStored();
+                arr.unshift(item);
+                localStorage.setItem(this.key, JSON.stringify(arr));
+                this.addManagedCard(item);
+                this.renderManagedList();
+                fileInput.value = '';
+                preview.innerHTML = '';
+                return;
+              } else {
+                const txt = await resp.text();
+                alert('Upload failed: ' + txt);
+                return;
+              }
+            } catch (err) {
+              // fallback to local-only storage
+            }
+
+            // Fallback: store as data URL locally
+            const reader = new FileReader();
+            reader.onload = e => {
+              const id = 'mimg_' + Date.now();
+              const item = { id, name: file.name, dataUrl: e.target.result };
+              const arr = this.getStored();
+              arr.unshift(item);
+              localStorage.setItem(this.key, JSON.stringify(arr));
+              this.addManagedCard(item);
+              this.renderManagedList();
+              fileInput.value = '';
+              preview.innerHTML = '';
+              alert('Server not available — image saved locally only.');
+            };
+            reader.readAsDataURL(file);
+          })();
+        });
+
+        this.panel = panel;
+        this.uploadBtn = uploadBtn;
+        this.fileInput = fileInput;
+        this.managedList = panel.querySelector('#managedList');
+      }
+
+      getStored() {
+        try { const raw = localStorage.getItem(this.key); return raw ? JSON.parse(raw) : []; } catch (e) { return []; }
+      }
+
+      loadManagedImages() {
+        const arr = this.getStored();
+        arr.forEach(item => this.addManagedCard(item));
+        this.renderManagedList();
+      }
+
+      addManagedCard(item) {
+        const card = document.createElement('div');
+        card.className = 'gallery-card managed-image';
+        card.dataset.managedId = item.id;
+        const src = item.url || item.dataUrl || '';
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-media">
+              <img src="${src}" alt="${this.escapeHtml(item.name)}" class="card-image" loading="lazy">
+            </div>
+          </div>
+        `;
+        this.galleryGrid.prepend(card);
+      }
+
+      renderManagedList() {
+        const arr = this.getStored();
+        this.managedList.innerHTML = '';
+        if (arr.length === 0) { this.managedList.innerHTML = '<div style="color:#666;font-size:13px">No managed images yet.</div>'; return; }
+        arr.forEach(item => {
+          const row = document.createElement('div');
+          row.style.display = 'flex';
+          row.style.alignItems = 'center';
+          row.style.gap = '8px';
+          row.style.marginBottom = '8px';
+          const thumb = item.url || item.dataUrl || '';
+          row.innerHTML = `<img src="${thumb}" style="width:48px;height:48px;object-fit:cover;border-radius:6px"/><div style="flex:1;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${this.escapeHtml(item.name)}</div><button data-id="${item.id}" style="background:#ff6b9d;border:none;color:#fff;padding:6px;border-radius:6px;cursor:pointer">Delete</button>`;
+          const btn = row.querySelector('button');
+          btn.addEventListener('click', () => this.deleteManaged(item.id));
+          this.managedList.appendChild(row);
+        });
+      }
+
+      async deleteManaged(id) {
+        const arr = this.getStored();
+        const item = arr.find(i => i.id === id);
+        if (!item) return;
+
+        // If uploaded to repo (has path), request server to delete
+        if (item.path) {
+          try {
+            const useNetlify = location.hostname.includes('netlify') || location.hostname === 'localhost';
+            const endpoint = useNetlify ? '/.netlify/functions/delete' : '/api/delete';
+            const resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ path: item.path }) });
+            if (!resp.ok) {
+              const txt = await resp.text();
+              alert('Delete failed: ' + txt);
+              return;
+            }
+          } catch (err) {
+            alert('Server not available to delete remote file.');
+            return;
+          }
+        }
+
+        const newArr = arr.filter(i => i.id !== id);
+        localStorage.setItem(this.key, JSON.stringify(newArr));
+        const el = document.querySelector(`.gallery-card[data-managed-id="${id}"]`);
+        if (el) el.remove();
+        this.renderManagedList();
+      }
+
+      escapeHtml(s) { return String(s).replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":"&#39;"})[c]); }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       // Initialize lightbox
@@ -1377,8 +1399,8 @@
       // Initialize lazy loading
       new LazyLoader();
 
-      // Initialize hearts animation
-      new HeartsAnimation();
+      // Initialize image manager (uploads to Netlify Functions / local fallback)
+      new ImageManager();
 
       // Add loaded class to body for any CSS transitions
       document.body.classList.add('loaded');
