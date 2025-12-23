@@ -1,1435 +1,684 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beautiful Moments Gallery 💕</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-
-  <style>
-    /* ===================================
-       CSS Variables & Theme
-       =================================== */
-    :root {
-      /* Color Palette - Soft & Romantic */
-      --color-primary: #ff6b9d;
-      --color-primary-light: #ffb3d9;
-      --color-primary-dark: #ff3d7f;
-      --color-secondary: #c44569;
-      --color-accent: #ffd93d;
-      --color-accent-light: #ffe66d;
-
-      /* Pastel Background Colors */
-      --color-bg-primary: #fff0f6;
-      --color-bg-secondary: #ffe5f1;
-      --color-bg-gradient-start: #ffeef8;
-      --color-bg-gradient-end: #e8f5ff;
-
-      /* Text Colors */
-      --color-text-primary: #2d3436;
-      --color-text-secondary: #636e72;
-      --color-text-light: #b2bec3;
-      --color-text-white: #ffffff;
-
-      /* Card & Surface Colors */
-      --color-card-bg: #ffffff;
-      --color-overlay: rgba(255, 107, 157, 0.9);
-      --color-overlay-light: rgba(255, 179, 217, 0.85);
-
-      /* Shadows */
-      --shadow-sm: 0 2px 8px rgba(255, 107, 157, 0.1);
-      --shadow-md: 0 4px 16px rgba(255, 107, 157, 0.15);
-      --shadow-lg: 0 8px 32px rgba(255, 107, 157, 0.2);
-      --shadow-xl: 0 12px 48px rgba(255, 107, 157, 0.25);
-
-      /* Typography */
-      --font-primary: 'Quicksand', sans-serif;
-      --font-display: 'Playfair Display', serif;
-      --font-script: 'Dancing Script', cursive;
-
-      /* Spacing */
-      --spacing-xs: 0.5rem;
-      --spacing-sm: 1rem;
-      --spacing-md: 1.5rem;
-      --spacing-lg: 2rem;
-      --spacing-xl: 3rem;
-      --spacing-2xl: 4rem;
-
-      /* Border Radius */
-      --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-      --radius-xl: 32px;
-
-      /* Transitions */
-      --transition-fast: 0.2s ease;
-      --transition-normal: 0.3s ease;
-      --transition-slow: 0.5s ease;
-    }
-
-    /* ===================================
-       Reset & Base Styles
-       =================================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-primary);
-      background: linear-gradient(135deg, var(--color-bg-gradient-start) 0%, var(--color-bg-gradient-end) 100%);
-      color: var(--color-text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ===================================
-       Typography Classes
-       =================================== */
-    .heading-primary {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      line-height: 1.2;
-      color: var(--color-primary-dark);
-    }
-
-    .heading-secondary {
-      font-family: var(--font-script);
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      font-weight: 600;
-      color: var(--color-primary);
-    }
-
-    .text-body {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--color-text-secondary);
-    }
-
-    .text-small {
-      font-size: 0.875rem;
-      color: var(--color-text-light);
-    }
-
-    /* Animated background removed to simplify admin UI and reduce bandwidth */
-
-    /* ===================================
-       Hero Section
-       =================================== */
-    .hero {
-      position: relative;
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: var(--spacing-2xl) var(--spacing-md);
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
-      z-index: -1;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      animation: fadeInUp 1s ease;
-    }
-
-    .hero-title {
-      margin-bottom: var(--spacing-md);
-    }
-
-    .title-line {
-      display: block;
-      font-family: var(--font-script);
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      color: var(--color-primary);
-      margin-bottom: var(--spacing-xs);
-      animation: fadeIn 1s ease 0.3s both;
-    }
-
-    .title-name {
-      display: block;
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: fadeIn 1s ease 0.6s both;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.5rem);
-      color: var(--color-text-secondary);
-      font-weight: 500;
-      animation: fadeIn 1s ease 0.9s both;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* ===================================
-       Gallery Container
-       =================================== */
-    .gallery-container {
-      position: relative;
-      z-index: 1;
-      padding: var(--spacing-xl) var(--spacing-md);
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: var(--spacing-lg);
-      padding: var(--spacing-md);
-    }
-
-    @media (max-width: 768px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-      }
-    }
-
-    /* ===================================
-       Gallery Cards
-       =================================== */
-    .gallery-card {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      cursor: pointer;
-      background: var(--color-card-bg);
-      box-shadow: var(--shadow-md);
-      transition: all var(--transition-normal);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .gallery-card.aos-animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .gallery-card:hover {
-      box-shadow: var(--shadow-xl);
-      transform: translateY(-8px) scale(1.02);
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      padding-bottom: 100%;
-      overflow: hidden;
-    }
-
-    .card-media {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .card-image,
-    .card-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform var(--transition-slow);
-    }
-
-    .gallery-card:hover .card-image,
-    .gallery-card:hover .card-video {
-      transform: scale(1.1);
-    }
-
-    .card-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top, var(--color-overlay) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transition-normal);
-      display: flex;
-      align-items: flex-end;
-      padding: var(--spacing-md);
-    }
-
-    .gallery-card:hover .card-overlay {
-      opacity: 1;
-    }
-
-    .card-note {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      color: var(--color-text-white);
-      font-weight: 600;
-      font-size: 1.1rem;
-      transform: translateY(20px);
-      transition: transform var(--transition-normal);
-    }
-
-    .gallery-card:hover .card-note {
-      transform: translateY(0);
-    }
-
-    .note-emoji {
-      font-size: 1.5rem;
-      animation: bounce 1s infinite;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-
-    .note-text {
-      font-family: var(--font-script);
-      font-size: 1.3rem;
-    }
-
-    /* ===================================
-       Lightbox Modal
-       =================================== */
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: var(--spacing-md);
-    }
-
-    .lightbox.active {
-      display: flex;
-      animation: fadeIn var(--transition-normal);
-    }
-
-    .lightbox-content {
-      max-width: 90vw;
-      max-height: 90vh;
-      position: relative;
-    }
-
-    .lightbox-image,
-    .lightbox-video {
-      max-width: 100%;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: var(--spacing-md);
-      right: var(--spacing-md);
-      width: 50px;
-      height: 50px;
-      border: none;
-      background: var(--color-primary);
-      color: var(--color-text-white);
-      font-size: 2rem;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .lightbox-close:hover {
-      background: var(--color-primary-dark);
-      transform: rotate(90deg) scale(1.1);
-    }
-
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      border: none;
-      background: var(--color-primary);
-      color: var(--color-text-white);
-      font-size: 2rem;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .lightbox-nav:hover {
-      background: var(--color-primary-dark);
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .lightbox-prev {
-      left: var(--spacing-md);
-    }
-
-    .lightbox-next {
-      right: var(--spacing-md);
-    }
-
-    /* ===================================
-       Footer
-       =================================== */
-    .footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: var(--spacing-xl) var(--spacing-md);
-      background: linear-gradient(to top, rgba(255, 107, 157, 0.1) 0%, transparent 100%);
-    }
-
-    .footer-text {
-      font-family: var(--font-script);
-      font-size: 1.3rem;
-      color: var(--color-primary);
-      cursor: pointer;
-      transition: all var(--transition-normal);
-    }
-
-    .footer-text:hover {
-      color: var(--color-primary-dark);
-      transform: scale(1.05);
-    }
-
-    /* ===================================
-       Responsive Design
-       =================================== */
-    @media (max-width: 768px) {
-      .hero {
-        min-height: 50vh;
-        padding: var(--spacing-xl) var(--spacing-md);
-      }
-
-      .gallery-container {
-        padding: var(--spacing-md);
-      }
-
-      .lightbox-nav,
-      .lightbox-close {
-        width: 40px;
-        height: 40px;
-        font-size: 1.5rem;
-      }
-    }
-
-    /* ===================================
-       Loading State
-       =================================== */
-    body.loaded {
-      animation: pageLoad 0.5s ease;
-    }
-
-    @keyframes pageLoad {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* ===================================
-       Scroll Animations
-       =================================== */
-    [data-aos] {
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    [data-aos="fade-up"] {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    [data-aos="fade-up"].aos-animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Stagger delays */
-    [data-aos-delay="100"] {
-      transition-delay: 0.1s;
-    }
-
-    [data-aos-delay="200"] {
-      transition-delay: 0.2s;
-    }
-
-    [data-aos-delay="300"] {
-      transition-delay: 0.3s;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday - Interactive 3D Experience 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 3D Floating Hearts Background */
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float-up 8s infinite;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            transform-style: preserve-3d;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plane-emoji {
+            font-size: 80px;
+            animation: fly 4s infinite ease-in-out;
+            display: inline-block;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        @keyframes fly {
+            0%, 100% { 
+                transform: translateX(0) translateY(0) rotateZ(0deg);
+            }
+            25% {
+                transform: translateX(30px) translateY(-15px) rotateZ(5deg);
+            }
+            75% {
+                transform: translateX(-30px) translateY(-15px) rotateZ(-5deg);
+            }
+        }
+
+        .header h1 {
+            font-size: 56px;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        /* Photo Gallery with 3D Cards */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            height: 300px;
+        }
+
+        .photo-card:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .photo-card:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        /* 3D Rotating Birthday Cake */
+        .cake-container {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            margin: 50px 0;
+        }
+
+        .cake-3d {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 10s infinite linear;
+        }
+
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .cake-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            box-shadow: 0 0 30px rgba(255,107,107,0.5);
+        }
+
+        .cake-face:nth-child(1) { transform: rotateY(0deg) translateZ(100px); }
+        .cake-face:nth-child(2) { transform: rotateY(90deg) translateZ(100px); }
+        .cake-face:nth-child(3) { transform: rotateY(180deg) translateZ(100px); }
+        .cake-face:nth-child(4) { transform: rotateY(270deg) translateZ(100px); }
+
+        /* Interactive Buttons */
+        .button-section {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        button {
+            padding: 18px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Section Styles */
+        .section {
+            margin: 50px 0;
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Modal for photos */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            margin: 5% auto;
+            max-width: 90%;
+            max-height: 80%;
+            animation: zoomIn 0.3s;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ff6b6b;
+        }
+
+        /* Wishes Display */
+        .wishes-display {
+            min-height: 100px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 15px;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .photo-card {
+                height: 200px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <!-- (Simplified) No animated background to keep admin UI lightweight -->
+    <div class="floating-hearts" id="floatingHearts"></div>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="title-line">Beautiful Moments</span>
-        <span class="title-name">Gallery of Love</span>
-      </h1>
-      <p class="hero-subtitle">A collection of precious memories 💕✨</p>
+    <div class="container">
+        <div class="header">
+            <div class="plane-emoji">✈️</div>
+            <h1>Happy Birthday! 🎉</h1>
+            <p style="font-size: 20px;">A Special 3D Journey Just For You</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">✨ Your Beautiful Moments</h2>
+                <div class="photo-gallery" id="photoGallery">
+                    <!-- Photos will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎂 3D Birthday Celebration</h2>
+                <div class="cake-container">
+                    <div class="cake-3d">
+                        <div class="cake-face">🎂</div>
+                        <div class="cake-face">🎉</div>
+                        <div class="cake-face">🎁</div>
+                        <div class="cake-face">💕</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wishes-display" id="wishesDisplay"></div>
+
+            <div class="button-section">
+                <button class="btn-primary" onclick="launchConfetti()">🎉 Launch Confetti!</button>
+                <button class="btn-secondary" onclick="makeAWish()">🌟 Make a Wish</button>
+                <button id="playBtn" class="btn-primary" onclick="playMusic()">🎵 Play Birthday Song</button>
+                <button class="btn-secondary" onclick="showMessage()">💌 Special Message</button>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <!-- Gallery Container -->
-  <main class="gallery-container">
-    <div class="gallery-grid" id="galleryGrid">
-      <!-- Video Card 1 -->
-      <div class="gallery-card video-card" data-aos="fade-up">
-        <div class="card-inner">
-          <div class="card-media">
-            <video src="vid1.mp4" autoplay loop muted playsinline poster="" class="card-video">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🎬</span>
-              <span class="note-text">Special Moments</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Background audio (place song.mp3 next to this file) -->
+    <audio id="bgAudio" src="song.mp3" preload="auto"></audio>
 
-      <!-- Image Card 1 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="1.jpg" alt="Beautiful smile" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">💖</span>
-              <span class="note-text">Radiant Beauty</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 2 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="2.jpg" alt="Lovely moment" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">✨</span>
-              <span class="note-text">Pure Joy</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Card 2 -->
-      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <video src="vid2.mp4" autoplay loop muted playsinline poster="" class="card-video">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🎥</span>
-              <span class="note-text">Cherished Times</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 3 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="3.jpg" alt="Sweet memories" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌸</span>
-              <span class="note-text">Sweet Memories</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 4 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="4.jpg" alt="Precious time" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">💕</span>
-              <span class="note-text">Precious Time</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 5 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="5.jpg" alt="Lovely smile" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌹</span>
-              <span class="note-text">Lovely Smile</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Card 3 -->
-      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <video src="vid3.mp4" autoplay loop muted playsinline poster="" class="card-video">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">📹</span>
-              <span class="note-text">Beautiful Memories</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 6 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="6.jpg" alt="Heartfelt moments" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">💗</span>
-              <span class="note-text">Heartfelt</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 7 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="7.jpg" alt="Graceful beauty" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🦋</span>
-              <span class="note-text">Graceful</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 8 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="8.jpg" alt="Charming presence" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌺</span>
-              <span class="note-text">Charming</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Card 4 -->
-      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <video src="vid4.mp4" autoplay loop muted playsinline poster="" class="card-video">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🎞️</span>
-              <span class="note-text">Precious Clips</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 9 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="9.jpg" alt="Wonderful memories" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌟</span>
-              <span class="note-text">Wonderful</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 10 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="10.jpg" alt="Delightful moments" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌈</span>
-              <span class="note-text">Delightful</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 11 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="11.jpg" alt="Enchanting beauty" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">✨</span>
-              <span class="note-text">Enchanting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Card 5 -->
-      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <video src="vid5.mp4" autoplay loop muted playsinline poster="" class="card-video">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🎬</span>
-              <span class="note-text">Magical Moments</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 12 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="12.jpg" alt="Stunning presence" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">💫</span>
-              <span class="note-text">Stunning</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 13 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="13.jpg" alt="Radiant glow" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌟</span>
-              <span class="note-text">Radiant Glow</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 14 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="14.jpg" alt="Captivating smile" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">💖</span>
-              <span class="note-text">Captivating</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Video Card 6 -->
-      <div class="gallery-card video-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <video src="vid6.mp4" autoplay loop muted playsinline poster="" class="card-video">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🎥</span>
-              <span class="note-text">Unforgettable</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 15 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="15.jpg" alt="Elegant beauty" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">🌹</span>
-              <span class="note-text">Elegant</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 16 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="16.jpg" alt="Mesmerizing moments" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">✨</span>
-              <span class="note-text">Mesmerizing</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 17 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="17.jpg" alt="Angelic presence" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">👼</span>
-              <span class="note-text">Angelic</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 18 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="18.jpg" alt="Dreamy moments" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">💭</span>
-              <span class="note-text">Dreamy</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Card 19 -->
-      <div class="gallery-card" data-aos="fade-up" data-aos-delay="300">
-        <div class="card-inner">
-          <div class="card-media">
-            <img src="19.jpg" alt="Timeless beauty" class="card-image" loading="lazy">
-          </div>
-          <div class="card-overlay">
-            <div class="card-note">
-              <span class="note-emoji">⏳</span>
-              <span class="note-text">Timeless</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Modal for viewing photos/videos -->
+    <div id="photoModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modalMedia"></div>
     </div>
-  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p class="footer-text">Made with 💖 for someone special</p>
-  </footer>
+    <script>
+        // Photo captions
+        const photos = [
+            { caption: "Moments of devotion 🙏" },
+            { caption: "Family blessings ❤️" },
+            { caption: "Peaceful moments 💫" },
+            { caption: "Festival celebrations 🎊" },
+            { caption: "Elegant grace ✨" },
+            { caption: "Beautiful memories 💕" },
+            { caption: "Rainy day vibes 🌧️" },
+            { caption: "Cherished companionship 🐻" },
+            { caption: "Sunday style 💃" },
+            { caption: "Road trip adventures 🚗" },
+            { caption: "Family treasures 👨‍👩‍👧" },
+            { caption: "Mountain adventures 🏔️" },
+            { caption: "Confident vibes ✌️" },
+            { caption: "Elegant evenings 🌙" },
+            { caption: "Precious bonds 👶" },
+            { caption: "Aviation dreams ✈️" },
+            { caption: "Furry friend love 🐕" },
+            { caption: "Simple joys 😊" },
+            { caption: "Landmark moments 🏛️" }
+        ];
 
-  <!-- Lightbox Modal -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">&times;</button>
-    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
-    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
-    <div class="lightbox-content">
-      <img src="" alt="" id="lightboxImage" class="lightbox-image">
-      <video src="" controls id="lightboxVideo" class="lightbox-video"></video>
-    </div>
-  </div>
+        // Video captions (vid1.mp4 .. vid6.mp4)
+        const videos = [
+            { caption: "Birthday highlights 1 🎬" },
+            { caption: "Birthday highlights 2 🎬" },
+            { caption: "Birthday highlights 3 🎬" },
+            { caption: "Birthday highlights 4 🎬" },
+            { caption: "Birthday highlights 5 🎬" },
+            { caption: "Birthday highlights 6 🎬" }
+        ];
 
-  <script>
-    // ===================================
-    // Gallery Lightbox Functionality
-    // ===================================
-
-    class GalleryLightbox {
-      constructor() {
-        this.lightbox = document.getElementById('lightbox');
-        this.lightboxImage = document.getElementById('lightboxImage');
-        this.lightboxVideo = document.getElementById('lightboxVideo');
-        this.lightboxClose = document.getElementById('lightboxClose');
-        this.lightboxPrev = document.getElementById('lightboxPrev');
-        this.lightboxNext = document.getElementById('lightboxNext');
-        this.galleryCards = document.querySelectorAll('.gallery-card');
-        this.currentIndex = 0;
-
-        this.init();
-      }
-
-      init() {
-        // Use event delegation so dynamically added cards work
-        const gallery = document.getElementById('galleryGrid');
-        if (gallery) {
-          gallery.addEventListener('click', (e) => {
-            const card = e.target.closest('.gallery-card');
-            if (!card) return;
-            const cards = Array.from(document.querySelectorAll('.gallery-card'));
-            const index = cards.indexOf(card);
-            if (index >= 0) this.openLightbox(index);
-          });
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(heart);
+            }
         }
 
-        // Close lightbox
-        this.lightboxClose.addEventListener('click', () => this.closeLightbox());
+        // Initialize gallery (interleaves images 1.jpg-19.jpg and videos vid1.mp4-vid6.mp4)
+        function initPhotoGallery() {
+            const gallery = document.getElementById('photoGallery');
 
-        // Navigation
-        this.lightboxPrev.addEventListener('click', () => this.navigate(-1));
-        this.lightboxNext.addEventListener('click', () => this.navigate(1));
+            const imageItems = photos.map((p, i) => ({ type: 'image', src: `${i + 1}.jpg`, caption: p.caption }));
+            const videoItems = videos.map((v, i) => ({ type: 'video', src: `vid${i + 1}.mp4`, caption: v.caption }));
 
-        // Close on background click
-        this.lightbox.addEventListener('click', (e) => {
-          if (e.target === this.lightbox) {
-            this.closeLightbox();
-          }
-        });
+            // interleave images and videos: image, video, image, video...
+            const galleryItems = [];
+            const maxLen = Math.max(imageItems.length, videoItems.length);
+            for (let i = 0; i < maxLen; i++) {
+                if (i < imageItems.length) galleryItems.push(imageItems[i]);
+                if (i < videoItems.length) galleryItems.push(videoItems[i]);
+            }
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-          if (!this.lightbox.classList.contains('active')) return;
+            galleryItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
 
-          if (e.key === 'Escape') this.closeLightbox();
-          if (e.key === 'ArrowLeft') this.navigate(-1);
-          if (e.key === 'ArrowRight') this.navigate(1);
-        });
-      }
+                if (item.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = item.src;
+                    img.alt = item.caption || `Photo ${index + 1}`;
+                    img.loading = 'lazy';
+                    card.appendChild(img);
+                } else {
+                    const vid = document.createElement('video');
+                    vid.src = item.src;
+                    vid.muted = true;
+                    vid.loop = true;
+                    vid.playsInline = true;
+                    vid.preload = 'metadata';
+                    vid.style.width = '100%';
+                    vid.style.height = '100%';
+                    vid.style.objectFit = 'cover';
+                    vid.addEventListener('canplay', () => { try { vid.play(); } catch (e) {} });
+                    card.appendChild(vid);
+                }
 
-      openLightbox(index) {
-        // refresh list of gallery cards so dynamically added cards are included
-        this.galleryCards = document.querySelectorAll('.gallery-card');
-        this.currentIndex = index;
-        this.showMedia();
-        this.lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
+                const overlay = document.createElement('div');
+                overlay.className = 'photo-overlay';
+                overlay.innerHTML = `<p>${item.caption}</p>`;
+                card.appendChild(overlay);
 
-      closeLightbox() {
-        this.lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-
-        // Pause video if playing
-        if (!this.lightboxVideo.paused) {
-          this.lightboxVideo.pause();
-        }
-      }
-
-      navigate(direction) {
-        this.currentIndex += direction;
-
-        // Loop around
-        if (this.currentIndex < 0) {
-          this.currentIndex = this.galleryCards.length - 1;
-        } else if (this.currentIndex >= this.galleryCards.length) {
-          this.currentIndex = 0;
-        }
-
-        this.showMedia();
-      }
-
-      showMedia() {
-        const currentCard = this.galleryCards[this.currentIndex];
-        const isVideo = currentCard.classList.contains('video-card');
-
-        if (isVideo) {
-          const videoSrc = currentCard.querySelector('video').src;
-          this.lightboxVideo.src = videoSrc;
-          this.lightboxVideo.style.display = 'block';
-          this.lightboxImage.style.display = 'none';
-          // Enable controls in lightbox for user interaction
-          this.lightboxVideo.controls = true;
-          this.lightboxVideo.muted = false;
-        } else {
-          const imageSrc = currentCard.querySelector('img').src;
-          const imageAlt = currentCard.querySelector('img').alt;
-          this.lightboxImage.src = imageSrc;
-          this.lightboxImage.alt = imageAlt;
-          this.lightboxImage.style.display = 'block';
-          this.lightboxVideo.style.display = 'none';
-          this.lightboxVideo.pause();
-          this.lightboxVideo.controls = false;
-        }
-      }
-    }
-
-    // ===================================
-    // Scroll Animations (AOS-like)
-    // ===================================
-
-    class ScrollAnimations {
-      constructor() {
-        this.animatedElements = document.querySelectorAll('[data-aos]');
-        this.init();
-      }
-
-      init() {
-        this.observeElements();
-
-        // Initial check for elements already in view
-        this.checkElements();
-      }
-
-      observeElements() {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('aos-animate');
-              }
+                card.onclick = () => showGalleryModal(index, galleryItems);
+                gallery.appendChild(card);
             });
-          },
-          {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-          }
-        );
-
-        this.animatedElements.forEach(element => {
-          observer.observe(element);
-        });
-      }
-
-      checkElements() {
-        this.animatedElements.forEach(element => {
-          const rect = element.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-
-          if (rect.top < windowHeight - 50) {
-            element.classList.add('aos-animate');
-          }
-        });
-      }
-    }
-
-    // ===================================
-    // Card Hover Effects Enhancement
-    // ===================================
-
-    class CardEffects {
-      constructor() {
-        this.cards = document.querySelectorAll('.gallery-card');
-        this.init();
-      }
-
-      init() {
-        this.cards.forEach(card => {
-          card.addEventListener('mouseenter', (e) => this.handleMouseEnter(e));
-          card.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-          card.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
-        });
-      }
-
-      handleMouseEnter(e) {
-        const card = e.currentTarget;
-        card.style.transition = 'transform 0.1s ease';
-      }
-
-      handleMouseMove(e) {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
-      }
-
-      handleMouseLeave(e) {
-        const card = e.currentTarget;
-        card.style.transition = 'transform 0.3s ease';
-        card.style.transform = '';
-      }
-    }
-
-    // ===================================
-    // Performance Optimization
-    // ===================================
-
-    class LazyLoader {
-      constructor() {
-        this.images = document.querySelectorAll('img[loading="lazy"]');
-        this.init();
-      }
-
-      init() {
-        if ('loading' in HTMLImageElement.prototype) {
-          // Browser supports native lazy loading
-          return;
         }
 
-        // Fallback for browsers that don't support lazy loading
-        const imageObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              img.src = img.dataset.src || img.src;
-              imageObserver.unobserve(img);
-            }
-          });
-        });
+        // Show gallery item (image or video) in modal
+        function showGalleryModal(index, galleryItems) {
+            const modal = document.getElementById('photoModal');
+            const modalMedia = document.getElementById('modalMedia');
+            const item = galleryItems[index];
+            if (!item) return;
 
-        this.images.forEach(img => imageObserver.observe(img));
-      }
-    }
+            // clear previous
+            modalMedia.innerHTML = '';
 
-    // Hearts animation removed for simplified admin UI
-
-    // ===================================
-    // Initialize Everything
-    // ===================================
-    // Image Manager: client-side upload/delete with localStorage persistence
-    class ImageManager {
-      constructor() {
-        this.key = 'managedImages_v1';
-        this.galleryGrid = document.getElementById('galleryGrid');
-        this.initUI();
-        this.loadManagedImages();
-      }
-
-      initUI() {
-        const btn = document.createElement('button');
-        btn.id = 'manageBtn';
-        btn.textContent = 'Manage Images';
-        Object.assign(btn.style, { position: 'fixed', right: '18px', bottom: '18px', zIndex: 10001, background: 'var(--color-primary)', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: '10px', cursor: 'pointer', boxShadow: 'var(--shadow-lg)' });
-        document.body.appendChild(btn);
-
-        const panel = document.createElement('div');
-        panel.id = 'managePanel';
-        Object.assign(panel.style, { position: 'fixed', right: '18px', bottom: '70px', width: '320px', maxHeight: '60vh', overflowY: 'auto', background: 'white', padding: '12px', borderRadius: '12px', boxShadow: 'var(--shadow-xl)', zIndex: 10001, display: 'none' });
-        panel.innerHTML = `
-          <h3 style="margin:0 0 8px 0;font-family:var(--font-display)">Manage Images</h3>
-          <input type="file" id="imgFile" accept="image/*" />
-          <div id="preview" style="margin-top:8px"></div>
-          <button id="uploadImg" style="margin-top:8px;display:block;background:var(--color-primary);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer">Upload</button>
-          <hr style="margin:10px 0"/>
-          <div id="managedList"></div>
-          <p style="font-size:12px;color:#666;margin-top:8px">Images are stored locally in your browser unless you configure the backend (Netlify Functions) to save them to GitHub.</p>
-        `;
-        document.body.appendChild(panel);
-
-        btn.addEventListener('click', () => panel.style.display = panel.style.display === 'none' ? 'block' : 'none');
-
-        const fileInput = panel.querySelector('#imgFile');
-        const preview = panel.querySelector('#preview');
-        const uploadBtn = panel.querySelector('#uploadImg');
-
-        fileInput.addEventListener('change', () => {
-          const file = fileInput.files[0];
-          preview.innerHTML = '';
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = e => {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            Object.assign(img.style, { maxWidth: '100%', borderRadius: '8px' });
-            preview.appendChild(img);
-          };
-          reader.readAsDataURL(file);
-        });
-
-        uploadBtn.addEventListener('click', () => {
-          (async () => {
-            const file = fileInput.files[0];
-            if (!file) { alert('Choose an image first'); return; }
-
-            // Choose endpoint: Netlify Functions when deployed, otherwise local /api
-            const useNetlify = location.hostname.includes('netlify') || location.hostname === 'localhost';
-            const endpoint = useNetlify ? '/.netlify/functions/upload' : '/api/upload';
-
-            try {
-              // Read file as data URL (base64) and send JSON to serverless function
-              const dataUrl = await new Promise((resolve, reject) => {
-                const r = new FileReader();
-                r.onload = () => resolve(r.result);
-                r.onerror = reject;
-                r.readAsDataURL(file);
-              });
-
-              console.log('Uploading to:', endpoint);
-              const resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: file.name, dataUrl }) });
-              console.log('Upload response status:', resp.status);
-              
-              if (resp.ok) {
-                const data = await resp.json();
-                console.log('Upload success:', data);
-                const id = 'mimg_' + Date.now();
-                const item = { id, name: file.name, url: data.url, path: data.path };
-                const arr = this.getStored();
-                arr.unshift(item);
-                localStorage.setItem(this.key, JSON.stringify(arr));
-                this.addManagedCard(item);
-                this.renderManagedList();
-                fileInput.value = '';
-                preview.innerHTML = '';
-                alert('Image uploaded successfully!');
-                return;
-              } else {
-                const txt = await resp.text();
-                console.error('Upload failed:', txt);
-                alert('Upload failed: ' + txt);
-                return;
-              }
-            } catch (err) {
-              console.error('Upload error:', err);
-              // fallback to local-only storage
+            if (item.type === 'image') {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = item.caption || `Photo ${index + 1}`;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '80vh';
+                modalMedia.appendChild(img);
+            } else {
+                const video = document.createElement('video');
+                video.src = item.src;
+                video.controls = true;
+                video.autoplay = true;
+                video.style.maxWidth = '100%';
+                video.style.maxHeight = '80vh';
+                video.playsInline = true;
+                modalMedia.appendChild(video);
             }
 
-            // Fallback: store as data URL locally
-            const reader = new FileReader();
-            reader.onload = e => {
-              const id = 'mimg_' + Date.now();
-              const item = { id, name: file.name, dataUrl: e.target.result };
-              const arr = this.getStored();
-              arr.unshift(item);
-              localStorage.setItem(this.key, JSON.stringify(arr));
-              this.addManagedCard(item);
-              this.renderManagedList();
-              fileInput.value = '';
-              preview.innerHTML = '';
-              alert('Server not available — image saved locally only.');
-            };
-            reader.readAsDataURL(file);
-          })();
-        });
-
-        this.panel = panel;
-        this.uploadBtn = uploadBtn;
-        this.fileInput = fileInput;
-        this.managedList = panel.querySelector('#managedList');
-      }
-
-      getStored() {
-        try { const raw = localStorage.getItem(this.key); return raw ? JSON.parse(raw) : []; } catch (e) { return []; }
-      }
-
-      loadManagedImages() {
-        const arr = this.getStored();
-        arr.forEach(item => this.addManagedCard(item));
-        this.renderManagedList();
-      }
-
-      addManagedCard(item) {
-        const card = document.createElement('div');
-        card.className = 'gallery-card managed-image';
-        card.dataset.managedId = item.id;
-        const src = item.url || item.dataUrl || '';
-        card.innerHTML = `
-          <div class="card-inner">
-            <div class="card-media">
-              <img src="${src}" alt="${this.escapeHtml(item.name)}" class="card-image" loading="lazy">
-            </div>
-          </div>
-        `;
-        this.galleryGrid.prepend(card);
-      }
-
-      renderManagedList() {
-        const arr = this.getStored();
-        this.managedList.innerHTML = '';
-        if (arr.length === 0) { this.managedList.innerHTML = '<div style="color:#666;font-size:13px">No managed images yet.</div>'; return; }
-        arr.forEach(item => {
-          const row = document.createElement('div');
-          row.style.display = 'flex';
-          row.style.alignItems = 'center';
-          row.style.gap = '8px';
-          row.style.marginBottom = '8px';
-          const thumb = item.url || item.dataUrl || '';
-          row.innerHTML = `<img src="${thumb}" style="width:48px;height:48px;object-fit:cover;border-radius:6px"/><div style="flex:1;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${this.escapeHtml(item.name)}</div><button data-id="${item.id}" style="background:#ff6b9d;border:none;color:#fff;padding:6px;border-radius:6px;cursor:pointer">Delete</button>`;
-          const btn = row.querySelector('button');
-          btn.addEventListener('click', () => this.deleteManaged(item.id));
-          this.managedList.appendChild(row);
-        });
-      }
-
-      async deleteManaged(id) {
-        const arr = this.getStored();
-        const item = arr.find(i => i.id === id);
-        if (!item) return;
-
-        // If uploaded to repo (has path), request server to delete
-        if (item.path) {
-          try {
-            const useNetlify = location.hostname.includes('netlify') || location.hostname === 'localhost';
-            const endpoint = useNetlify ? '/.netlify/functions/delete' : '/api/delete';
-            const resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ path: item.path }) });
-            if (!resp.ok) {
-              const txt = await resp.text();
-              alert('Delete failed: ' + txt);
-              return;
-            }
-          } catch (err) {
-            alert('Server not available to delete remote file.');
-            return;
-          }
+            modal.style.display = 'block';
         }
 
-        const newArr = arr.filter(i => i.id !== id);
-        localStorage.setItem(this.key, JSON.stringify(newArr));
-        const el = document.querySelector(`.gallery-card[data-managed-id="${id}"]`);
-        if (el) el.remove();
-        this.renderManagedList();
-      }
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('photoModal');
+            const modalMedia = document.getElementById('modalMedia');
+            // pause any playing video
+            const video = modalMedia.querySelector('video');
+            if (video) {
+                try { video.pause(); } catch (e) {}
+            }
+            modal.style.display = 'none';
+            modalMedia.innerHTML = '';
+        }
 
-      escapeHtml(s) { return String(s).replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":"&#39;"})[c]); }
-    }
+        // Launch confetti
+        function launchConfetti() {
+            const confettiPieces = 100;
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'];
+            
+            for (let i = 0; i < confettiPieces; i++) {
+                setTimeout(() => createConfetti(colors), i * 30);
+            }
+        }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initialize lightbox
-      new GalleryLightbox();
+        function createConfetti(colors) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.textContent = ['🎉', '🎂', '✈️', '🎁', '💕', '⭐', '🎈'][Math.floor(Math.random() * 7)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.fontSize = Math.random() * 30 + 20 + 'px';
+            confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animation = `fall ${Math.random() * 2 + 3}s linear forwards`;
+            
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 5000);
+        }
 
-      // Initialize scroll animations
-      new ScrollAnimations();
+        // Make a wish
+        function makeAWish() {
+            const wishes = [
+                "✨ May all your cabin crew dreams soar high!",
+                "🎂 May this year bring endless joy and adventure!",
+                "❤️ May your love for family grow stronger each day!",
+                "🌟 May every moment sparkle with happiness!",
+                "🍦 May life be as sweet as Oreo ice cream!",
+                "✈️ May you reach incredible new heights!",
+                "💫 May you always shine as bright as you do!",
+                "🎁 May all your wishes come true this year!",
+                "🌈 May your path be filled with colors of joy!",
+                "💕 May love and laughter surround you always!"
+            ];
+            
+            const display = document.getElementById('wishesDisplay');
+            const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+            display.textContent = randomWish;
+            display.style.display = 'block';
+            
+            setTimeout(() => {
+                display.style.display = 'none';
+            }, 5000);
+        }
 
-      // Initialize card effects
-      new CardEffects();
+        // Play / toggle background music (expects song.mp3 next to this HTML)
+        function playMusic() {
+            const audio = document.getElementById('bgAudio');
+            const btn = document.getElementById('playBtn');
+            if (!audio) return launchConfetti();
 
-      // Initialize lazy loading
-      new LazyLoader();
+            if (audio.paused) {
+                audio.play().catch(() => {});
+                if (btn) btn.textContent = '⏸️ Stop Music';
+                launchConfetti();
+            } else {
+                audio.pause();
+                audio.currentTime = 0;
+                if (btn) btn.textContent = '🎵 Play Birthday Song';
+            }
+        }
 
-      // Initialize image manager (uploads to Netlify Functions / local fallback)
-      new ImageManager();
+        // Show special message
+        function showMessage() {
+            const display = document.getElementById('wishesDisplay');
+            display.innerHTML = `
+                <h3>💌 A Special Message For You</h3>
+                <p style="margin-top: 15px; font-size: 20px;">
+                    Today we celebrate YOU - your dreams of aviation, your love for family, 
+                    your beautiful spirit, and everything that makes you special. 
+                    May this year bring you closer to your cabin crew dreams and fill 
+                    your life with as much sweetness as your favorite Oreo ice cream! ✈️💕
+                </p>
+            `;
+            display.style.display = 'block';
+            launchConfetti();
+        }
 
-      // Add loaded class to body for any CSS transitions
-      document.body.classList.add('loaded');
-    });
+        // Falling animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotateZ(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
-    // ===================================
-    // Utility: Smooth Scroll to Top
-    // ===================================
+        // Initialize on load
+        window.addEventListener('load', () => {
+            createFloatingHearts();
+            initPhotoGallery();
+            setTimeout(launchConfetti, 1000);
+        });
 
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    // Add scroll to top on footer click
-    const footer = document.querySelector('.footer');
-    if (footer) {
-      footer.addEventListener('click', scrollToTop);
-    }
-  </script>
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('photoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
-
 </html>
