@@ -1265,9 +1265,13 @@
                 r.readAsDataURL(file);
               });
 
+              console.log('Uploading to:', endpoint);
               const resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: file.name, dataUrl }) });
+              console.log('Upload response status:', resp.status);
+              
               if (resp.ok) {
                 const data = await resp.json();
+                console.log('Upload success:', data);
                 const id = 'mimg_' + Date.now();
                 const item = { id, name: file.name, url: data.url, path: data.path };
                 const arr = this.getStored();
@@ -1277,13 +1281,16 @@
                 this.renderManagedList();
                 fileInput.value = '';
                 preview.innerHTML = '';
+                alert('Image uploaded successfully!');
                 return;
               } else {
                 const txt = await resp.text();
+                console.error('Upload failed:', txt);
                 alert('Upload failed: ' + txt);
                 return;
               }
             } catch (err) {
+              console.error('Upload error:', err);
               // fallback to local-only storage
             }
 
